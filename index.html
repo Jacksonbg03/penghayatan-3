@@ -12,23 +12,22 @@
   * { font-family: 'Montserrat', sans-serif; }
   body { background: #070d1a; }
 
-  .glass { background: rgba(255,255,255,.05); backdrop-filter: blur(16px); border: 1px solid rgba(255,255,255,.09); }
-  .glass-sm { background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.07); }
+  .glass    { background: rgba(255,255,255,.09); backdrop-filter: blur(16px); border: 1px solid rgba(255,255,255,.14); }
+  .glass-sm { background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.12); }
 
   .chip-selected {
-    background: rgba(99,102,241,.3) !important;
+    background: rgba(99,102,241,.35) !important;
     border-color: #6366f1 !important;
     box-shadow: 0 0 0 1.5px #6366f1, 0 0 20px rgba(99,102,241,.35);
   }
   .shore-active {
     border-color: #818cf8 !important;
-    box-shadow: 0 0 0 1.5px #6366f1, 0 0 28px rgba(99,102,241,.18);
+    box-shadow: 0 0 0 1.5px #6366f1, 0 0 28px rgba(99,102,241,.2);
   }
-  .glow-green { box-shadow: 0 0 28px rgba(34,197,94,.2); border-color: #22c55e !important; }
-  .glow-red   { box-shadow: 0 0 28px rgba(239,68,68,.2); border-color: #ef4444 !important; }
+  .glow-green { box-shadow: 0 0 28px rgba(34,197,94,.2);  border-color: #22c55e !important; }
+  .glow-red   { box-shadow: 0 0 28px rgba(239,68,68,.2);  border-color: #ef4444 !important; }
 
-  .btn-disabled { opacity: .3 !important; pointer-events: none; }
-
+  .btn-disabled { opacity: .35 !important; pointer-events: none; }
   .chip-hover { transition: all .15s ease; }
   .chip-hover:active { transform: scale(.96); }
 
@@ -38,28 +37,20 @@
   }
   .fade-up { animation: fadeUp .3s ease; }
 
-  @keyframes shake {
-    0%,100% { transform: translateX(0); }
-    20%,60%  { transform: translateX(-5px); }
-    40%,80%  { transform: translateX(5px); }
-  }
-  .shake { animation: shake .4s ease; }
-
   ::-webkit-scrollbar { width: 3px; }
-  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,.12); border-radius: 99px; }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,.2); border-radius: 99px; }
 </style>
 </head>
 <body class="min-h-screen text-white select-none">
 
-<!-- ── HEADER ── -->
-<header class="sticky top-0 z-50" style="background:rgba(7,13,26,.9);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,255,255,.06)">
+<!-- HEADER -->
+<header class="sticky top-0 z-50" style="background:rgba(7,13,26,.92);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,255,255,.1)">
   <div class="max-w-md mx-auto flex items-center justify-between px-4 py-3.5">
     <div>
-      <p class="text-xs font-600 text-white/35 uppercase tracking-widest mb-0.5">CT Helper · Pos 2</p>
+      <p class="text-xs font-700 text-white/60 uppercase tracking-widest mb-0.5">CT Helper · Pos 2</p>
       <h1 class="text-lg font-black leading-tight">🛶 Menyebrangi Pulau</h1>
     </div>
-    <button onclick="resetGame()"
-      class="glass-sm rounded-2xl px-4 py-2 text-sm font-700 text-red-400 chip-hover active:scale-95">
+    <button onclick="resetGame()" class="glass-sm rounded-2xl px-4 py-2 text-sm font-700 text-red-400 chip-hover">
       ↺ Reset
     </button>
   </div>
@@ -68,8 +59,7 @@
 <div class="max-w-md mx-auto px-3.5 pt-4 pb-16 space-y-3.5">
 
   <!-- STATUS -->
-  <div id="status-bar"
-    class="glass glow-green rounded-2xl px-5 py-3.5 text-center font-bold text-base transition-all duration-300 text-green-400">
+  <div id="status-bar" class="glass glow-green rounded-2xl px-5 py-4 text-center font-bold text-base transition-all duration-300 text-green-400">
     ✅ Aman — Pilih siapa yang naik perahu
   </div>
 
@@ -80,96 +70,86 @@
   <div id="win-card" class="hidden glass glow-green rounded-2xl p-6 text-center fade-up">
     <div class="text-5xl mb-3">🎉</div>
     <div class="text-xl font-black text-green-400 mb-1">Semua Berhasil Menyebrang!</div>
-    <div class="text-sm text-white/50">Pulau A sudah kosong. Lanjut ke Pos 3!</div>
-    <div class="mt-4 bg-yellow-500/10 border border-yellow-500/25 rounded-2xl p-3.5 text-sm text-yellow-300 italic leading-relaxed">
+    <div class="text-sm font-600 text-white/80 mt-1">Pulau A sudah kosong. Lanjut ke Pos 3!</div>
+    <div class="mt-4 bg-yellow-500/15 border border-yellow-500/40 rounded-2xl p-3.5 text-sm font-600 text-yellow-300 italic leading-relaxed">
       💬 "Mau bantu tim lain atau lanjut ke Pos 3?"
     </div>
   </div>
 
-  <!-- ── ISLANDS ── -->
+  <!-- ISLANDS -->
   <div class="grid grid-cols-2 gap-2.5">
 
-    <!-- PULAU A -->
     <div id="island-a" class="glass rounded-2xl p-3.5 transition-all duration-300">
       <div class="flex items-start justify-between mb-3">
         <div>
-          <p class="text-[11px] font-700 uppercase tracking-widest text-white/30 mb-0.5">Asal</p>
+          <p class="text-xs font-700 uppercase tracking-widest text-white/60 mb-0.5">Asal</p>
           <h2 class="text-xl font-black text-amber-400 leading-none">Pulau A</h2>
         </div>
-        <span id="count-a" class="text-sm font-800 bg-amber-500/15 text-amber-400 rounded-xl px-2.5 py-1">8</span>
+        <span id="count-a" class="text-sm font-800 bg-amber-500/25 text-amber-300 rounded-xl px-2.5 py-1">8</span>
       </div>
       <div id="chars-a" class="space-y-2"></div>
     </div>
 
-    <!-- PULAU B -->
     <div id="island-b" class="glass rounded-2xl p-3.5 transition-all duration-300">
       <div class="flex items-start justify-between mb-3">
         <div>
-          <p class="text-[11px] font-700 uppercase tracking-widest text-white/30 mb-0.5">Tujuan</p>
+          <p class="text-xs font-700 uppercase tracking-widest text-white/60 mb-0.5">Tujuan</p>
           <h2 class="text-xl font-black text-green-400 leading-none">Pulau B</h2>
         </div>
-        <span id="count-b" class="text-sm font-800 bg-green-500/15 text-green-400 rounded-xl px-2.5 py-1">0</span>
+        <span id="count-b" class="text-sm font-800 bg-green-500/25 text-green-300 rounded-xl px-2.5 py-1">0</span>
       </div>
       <div id="chars-b" class="space-y-2"></div>
     </div>
 
   </div>
 
-  <!-- ── BOAT ── -->
-  <div id="boat-zone" class="glass rounded-2xl p-4 transition-all duration-300">
-
+  <!-- BOAT -->
+  <div id="boat-zone" class="glass rounded-2xl p-4">
     <div class="flex items-center justify-between mb-3.5">
       <div class="flex items-center gap-2.5">
-        <div class="text-2xl">🛶</div>
+        <span class="text-2xl">🛶</span>
         <div>
-          <p class="text-base font-black leading-tight">Perahu</p>
-          <p class="text-xs text-white/40 font-500">Maks. 2 orang</p>
+          <p class="text-base font-black">Perahu</p>
+          <p class="text-sm font-600 text-white/65">Maks. 2 orang</p>
         </div>
       </div>
-      <div id="boat-loc" class="text-sm font-700 rounded-xl px-3.5 py-1.5 bg-amber-500/15 text-amber-400">
-        di Pulau A
-      </div>
+      <div id="boat-loc" class="text-sm font-700 rounded-xl px-3.5 py-1.5 bg-amber-500/20 text-amber-300">di Pulau A</div>
     </div>
 
-    <!-- Passengers -->
     <div id="boat-passengers" class="min-h-[52px] flex items-center gap-2 flex-wrap mb-3.5">
-      <span class="text-sm text-white/25 italic font-500">Tap karakter untuk naik perahu...</span>
+      <span class="text-sm font-600 text-white/55 italic">Tap karakter untuk naik perahu...</span>
     </div>
 
-    <!-- Capacity bar -->
     <div class="flex gap-2 mb-4">
-      <div id="dot-1" class="h-2 flex-1 rounded-full bg-white/10 transition-all duration-200"></div>
-      <div id="dot-2" class="h-2 flex-1 rounded-full bg-white/10 transition-all duration-200"></div>
+      <div id="dot-1" class="h-2 flex-1 rounded-full bg-white/15 transition-all duration-200"></div>
+      <div id="dot-2" class="h-2 flex-1 rounded-full bg-white/15 transition-all duration-200"></div>
     </div>
 
-    <!-- Dayung button -->
     <button id="move-btn" onclick="moveBoat()"
-      class="w-full py-4 rounded-2xl font-black text-base tracking-wide transition-all duration-200 active:scale-95 chip-hover"
+      class="w-full py-4 rounded-2xl font-black text-base tracking-wide transition-all duration-200 active:scale-95 chip-hover text-white"
       style="background:linear-gradient(135deg,#6366f1,#4338ca);box-shadow:0 6px 24px rgba(99,102,241,.45)">
       🛶 Dayung → Pulau B
     </button>
   </div>
 
-  <!-- ── RIWAYAT ── -->
+  <!-- RIWAYAT -->
   <div class="glass rounded-2xl overflow-hidden">
-    <button onclick="toggleSection('log')"
-      class="w-full flex items-center justify-between px-4 py-4 chip-hover transition">
+    <button onclick="toggleSection('log')" class="w-full flex items-center justify-between px-4 py-4 chip-hover">
       <span class="text-base font-bold">📜 Riwayat <span id="move-count" class="text-indigo-400 ml-1">0</span></span>
-      <span id="log-arrow" class="text-white/35 font-bold transition-transform duration-200">▾</span>
+      <span id="log-arrow" class="text-white/70 font-bold text-lg transition-transform duration-200">▾</span>
     </button>
     <div id="log-body" class="hidden px-3 pb-3 max-h-64 overflow-y-auto space-y-2">
       <div id="log-list">
-        <p class="text-sm text-white/30 italic text-center py-3">Belum ada perjalanan</p>
+        <p class="text-sm font-600 text-white/60 italic text-center py-3">Belum ada perjalanan</p>
       </div>
     </div>
   </div>
 
-  <!-- ── KUNCI ── -->
+  <!-- KUNCI -->
   <div class="glass rounded-2xl overflow-hidden">
-    <button onclick="toggleSection('sol')"
-      class="w-full flex items-center justify-between px-4 py-4 chip-hover transition">
-      <span class="text-base font-bold">💡 Kunci Jawaban <span class="text-xs font-500 text-white/30 ml-1">CT Only</span></span>
-      <span id="sol-arrow" class="text-white/35 font-bold transition-transform duration-200">▾</span>
+    <button onclick="toggleSection('sol')" class="w-full flex items-center justify-between px-4 py-4 chip-hover">
+      <span class="text-base font-bold">💡 Kunci Jawaban <span class="text-sm font-600 text-white/60 ml-1">CT Only</span></span>
+      <span id="sol-arrow" class="text-white/70 font-bold text-lg transition-transform duration-200">▾</span>
     </button>
     <div id="sol-body" class="hidden px-3 pb-3 space-y-2">
       <div id="sol-steps"></div>
@@ -179,7 +159,6 @@
 </div>
 
 <script>
-// ── DATA ──
 const CHARS = {
   ayah:  { id:'ayah',  name:'AYAH',   emoji:'👨', isAdult:true,  canRow:true,  maxRows:4 },
   ibu:   { id:'ibu',   name:'IBU',    emoji:'👩', isAdult:true,  canRow:true,  maxRows:3 },
@@ -207,26 +186,23 @@ const SOLUTION = [
   { step:13, who:'Paman + Ibu',   dir:'→ B', note:'🎉 MENANG!', a:'KOSONG', b:'Semua orang' },
 ];
 
-// ── STATE ──
 let G = {};
 
 function initGame() {
   G = { locs:{}, rows:{}, boatAt:'A', selected:new Set(), log:[], over:false, won:false };
   for (const id in CHARS) { G.locs[id]='A'; G.rows[id]=0; }
 }
-
 function resetGame() { initGame(); render(); }
 
-// ── LOGIC ──
 function atLoc(loc) { return Object.keys(CHARS).filter(id => G.locs[id]===loc); }
 
 function validate() {
   const v = [];
   ['A','B'].forEach(loc => {
-    const here     = atLoc(loc);
-    const adults   = here.filter(id => CHARS[id].isAdult);
-    const children = here.filter(id => CHARS[id].isChild);
-    const needAdult= here.filter(id => CHARS[id].needsAdult);
+    const here      = atLoc(loc);
+    const adults    = here.filter(id => CHARS[id].isAdult);
+    const children  = here.filter(id => CHARS[id].isChild);
+    const needAdult = here.filter(id => CHARS[id].needsAdult);
     if (children.length && !adults.length)
       v.push(`${children.map(id=>CHARS[id].name).join(' & ')} sendirian di Pulau ${loc} tanpa orang dewasa!`);
     if (needAdult.length && !adults.length)
@@ -269,35 +245,37 @@ function moveBoat() {
   render();
 }
 
-// ── RENDER ──
 function render() { renderIslands(); renderBoat(); renderStatus(); renderLog(); }
 
 function renderIslands() {
   ['A','B'].forEach(loc => {
     const ids = atLoc(loc);
     document.getElementById('count-'+loc.toLowerCase()).textContent = ids.length;
-    const el  = document.getElementById('chars-'+loc.toLowerCase());
+    const el = document.getElementById('chars-'+loc.toLowerCase());
 
     if (!ids.length) {
-      el.innerHTML = `<p class="text-center text-white/25 text-sm italic py-4 font-500">${loc==='A'?'🏝️ Kosong':'✅ Semua tiba!'}</p>`;
+      el.innerHTML = `<p class="text-center text-white/60 text-sm font-600 italic py-4">${loc==='A'?'🏝️ Kosong!':'✅ Semua tiba!'}</p>`;
     } else {
       el.innerHTML = ids.map(id => {
-        const c = CHARS[id];
+        const c         = CHARS[id];
         const canSelect = !G.over && !G.won && G.locs[id]===G.boatAt;
         const isSel     = G.selected.has(id);
         const rowsLeft  = c.canRow ? c.maxRows - G.rows[id] : null;
 
         let badges = '';
         if (c.canRow)
-          badges += `<span class="px-2 py-0.5 rounded-lg text-xs font-700 ${rowsLeft===0 ? 'bg-red-500/20 text-red-400' : 'bg-indigo-500/20 text-indigo-300'}">${rowsLeft===0?'Habis':rowsLeft+'x'}</span>`;
-        if (c.isAdult)    badges += `<span class="px-2 py-0.5 rounded-lg text-xs font-700 bg-green-500/20 text-green-400">Dewasa</span>`;
-        if (c.isChild)    badges += `<span class="px-2 py-0.5 rounded-lg text-xs font-700 bg-red-500/20 text-red-400">Anak</span>`;
-        if (c.needsAdult) badges += `<span class="px-2 py-0.5 rounded-lg text-xs font-700 bg-yellow-500/15 text-yellow-400">Perlu dewasa</span>`;
+          badges += `<span class="px-2 py-0.5 rounded-lg text-xs font-700 ${rowsLeft===0 ? 'bg-red-500/30 text-red-300' : 'bg-indigo-500/30 text-indigo-200'}">${rowsLeft===0 ? 'Habis' : rowsLeft+'x'}</span>`;
+        if (c.isAdult)
+          badges += `<span class="px-2 py-0.5 rounded-lg text-xs font-700 bg-green-500/30 text-green-300">Dewasa</span>`;
+        if (c.isChild)
+          badges += `<span class="px-2 py-0.5 rounded-lg text-xs font-700 bg-red-500/30 text-red-300">Anak</span>`;
+        if (c.needsAdult)
+          badges += `<span class="px-2 py-0.5 rounded-lg text-xs font-700 bg-yellow-500/25 text-yellow-300">Perlu dewasa</span>`;
 
-        return `<div onclick="${canSelect?`toggleSelect('${id}')`:''}"
+        return `<div onclick="${canSelect ? `toggleSelect('${id}')` : ''}"
           class="flex items-center gap-2.5 rounded-xl border-2 p-2.5 chip-hover transition-all duration-150
-            ${isSel ? 'chip-selected' : 'bg-white/5 border-transparent'}
-            ${!canSelect ? 'opacity-40 cursor-not-allowed' : 'cursor-pointer'}">
+            ${isSel ? 'chip-selected' : 'bg-white/8 border-transparent'}
+            ${!canSelect ? 'opacity-45 cursor-not-allowed' : 'cursor-pointer'}">
           <span class="text-2xl leading-none flex-shrink-0">${c.emoji}</span>
           <div class="flex-1 min-w-0">
             <p class="text-sm font-800 leading-tight mb-1">${c.name}</p>
@@ -309,56 +287,50 @@ function renderIslands() {
 
     const isActive = G.boatAt===loc && !G.won && !G.over;
     document.getElementById('island-'+loc.toLowerCase()).className =
-      `glass rounded-2xl p-3.5 transition-all duration-300 ${isActive?'shore-active':''}`;
+      `glass rounded-2xl p-3.5 transition-all duration-300 ${isActive ? 'shore-active' : ''}`;
   });
 }
 
 function renderBoat() {
-  const sel = [...G.selected];
-
-  // Passengers
+  const sel   = [...G.selected];
   const passEl = document.getElementById('boat-passengers');
+
   if (!sel.length) {
-    passEl.innerHTML = `<span class="text-sm text-white/25 italic font-500">Tap karakter untuk naik perahu...</span>`;
+    passEl.innerHTML = `<span class="text-sm font-600 text-white/55 italic">Tap karakter untuk naik perahu...</span>`;
   } else {
     passEl.innerHTML = sel.map(id => {
       const c = CHARS[id];
-      return `<div class="flex items-center gap-2 bg-indigo-500/20 border border-indigo-400/30 rounded-xl px-3.5 py-2 text-sm font-700">
-        ${c.emoji} ${c.name}
-      </div>`;
+      return `<div class="flex items-center gap-2 bg-indigo-500/25 border border-indigo-400/40 rounded-xl px-3.5 py-2 text-sm font-700">${c.emoji} ${c.name}</div>`;
     }).join('');
   }
 
-  // Dots
-  ['dot-1','dot-2'].forEach((dotId,i) => {
+  ['dot-1','dot-2'].forEach((dotId, i) => {
     document.getElementById(dotId).className =
-      `h-2 flex-1 rounded-full transition-all duration-200 ${i<sel.length ? 'bg-indigo-400' : 'bg-white/10'}`;
+      `h-2 flex-1 rounded-full transition-all duration-200 ${i < sel.length ? 'bg-indigo-400' : 'bg-white/15'}`;
   });
 
-  // Boat loc badge
   const bl = document.getElementById('boat-loc');
   if (G.boatAt==='A') {
-    bl.className = 'text-sm font-700 rounded-xl px-3.5 py-1.5 bg-amber-500/15 text-amber-400';
+    bl.className = 'text-sm font-700 rounded-xl px-3.5 py-1.5 bg-amber-500/20 text-amber-300';
     bl.textContent = 'di Pulau A';
   } else {
-    bl.className = 'text-sm font-700 rounded-xl px-3.5 py-1.5 bg-green-500/15 text-green-400';
+    bl.className = 'text-sm font-700 rounded-xl px-3.5 py-1.5 bg-green-500/20 text-green-300';
     bl.textContent = 'di Pulau B';
   }
 
-  // Button
   const btn = document.getElementById('move-btn');
   btn.textContent = G.boatAt==='A' ? '🛶 Dayung → Pulau B' : '🛶 Dayung ← Pulau A';
-  if (boatError()||G.over||G.won) btn.classList.add('btn-disabled');
+  if (boatError() || G.over || G.won) btn.classList.add('btn-disabled');
   else btn.classList.remove('btn-disabled');
 }
 
 function renderStatus() {
   const bar = document.getElementById('status-bar');
-  const vEl  = document.getElementById('violations');
-  const win  = document.getElementById('win-card');
+  const vEl = document.getElementById('violations');
+  const win = document.getElementById('win-card');
 
   if (G.won) {
-    bar.className = 'glass glow-green rounded-2xl px-5 py-3.5 text-center font-bold text-base transition-all duration-300 text-green-400';
+    bar.className = 'glass glow-green rounded-2xl px-5 py-4 text-center font-bold text-base transition-all duration-300 text-green-400';
     bar.textContent = '🎉 Semua berhasil menyebrang ke Pulau B!';
     vEl.innerHTML = '';
     win.classList.remove('hidden');
@@ -368,10 +340,10 @@ function renderStatus() {
 
   const vios = validate();
   if (G.over || vios.length) {
-    bar.className = 'glass glow-red rounded-2xl px-5 py-3.5 text-center font-bold text-base transition-all duration-300 text-red-400';
+    bar.className = 'glass glow-red rounded-2xl px-5 py-4 text-center font-bold text-base transition-all duration-300 text-red-400';
     bar.textContent = '🚨 GAME OVER! Ada aturan dilanggar — Reset & Ulang';
     vEl.innerHTML = vios.map(v =>
-      `<div class="flex items-start gap-3 bg-red-500/10 border border-red-500/25 rounded-2xl px-4 py-3 text-sm font-600 text-red-300 leading-snug fade-up">
+      `<div class="flex items-start gap-3 bg-red-500/15 border border-red-500/40 rounded-2xl px-4 py-3 text-sm font-600 text-red-300 leading-snug fade-up">
         <span class="flex-shrink-0">❌</span><span>${v}</span>
       </div>`
     ).join('');
@@ -380,7 +352,7 @@ function renderStatus() {
 
   vEl.innerHTML = '';
   const n = atLoc('B').length;
-  bar.className = 'glass glow-green rounded-2xl px-5 py-3.5 text-center font-bold text-base transition-all duration-300 text-green-400';
+  bar.className = 'glass glow-green rounded-2xl px-5 py-4 text-center font-bold text-base transition-all duration-300 text-green-400';
   bar.textContent = n===0
     ? '✅ Aman — Pilih siapa yang naik perahu'
     : `✅ Aman — ${n} orang sudah di Pulau B`;
@@ -390,18 +362,18 @@ function renderLog() {
   document.getElementById('move-count').textContent = G.log.length;
   const el = document.getElementById('log-list');
   if (!G.log.length) {
-    el.innerHTML = `<p class="text-sm text-white/30 italic text-center py-3 font-500">Belum ada perjalanan</p>`;
+    el.innerHTML = `<p class="text-sm font-600 text-white/60 italic text-center py-3">Belum ada perjalanan</p>`;
     return;
   }
   el.innerHTML = [...G.log].reverse().map(e =>
     `<div class="glass-sm rounded-xl px-4 py-3 fade-up">
-      <div class="flex items-center gap-2 mb-1.5">
+      <div class="flex items-center gap-2 flex-wrap mb-1.5">
         <span class="text-sm font-800 text-indigo-400">Step ${e.n}</span>
         <span class="text-sm font-700 text-yellow-400">${e.dir}</span>
-        <span class="text-sm font-700">${e.who}</span>
+        <span class="text-sm font-700 text-white">${e.who}</span>
       </div>
-      <p class="text-xs text-white/35 font-500">A: ${e.a}</p>
-      <p class="text-xs text-white/35 font-500">B: ${e.b}</p>
+      <p class="text-xs font-600 text-white/70">A: ${e.a}</p>
+      <p class="text-xs font-600 text-white/70">B: ${e.b}</p>
     </div>`
   ).join('');
 }
@@ -409,19 +381,18 @@ function renderLog() {
 function renderSolution() {
   document.getElementById('sol-steps').innerHTML = SOLUTION.map(s =>
     `<div class="glass-sm rounded-xl px-4 py-3">
-      <div class="flex items-center gap-2 mb-1.5">
+      <div class="flex items-center gap-2 flex-wrap mb-1.5">
         <span class="text-sm font-800 text-indigo-400">Step ${s.step}</span>
         <span class="text-sm font-700 text-yellow-400">${s.dir}</span>
-        <span class="text-sm font-700">${s.who}</span>
+        <span class="text-sm font-700 text-white">${s.who}</span>
       </div>
-      <p class="text-xs text-white/35 font-500">A: ${s.a}</p>
-      <p class="text-xs text-white/35 font-500">B: ${s.b}</p>
-      ${s.note ? `<p class="text-xs font-700 text-green-400 mt-1.5">${s.note}</p>` : ''}
+      <p class="text-xs font-600 text-white/70">A: ${s.a}</p>
+      <p class="text-xs font-600 text-white/70">B: ${s.b}</p>
+      ${s.note ? `<p class="text-sm font-700 text-green-400 mt-1.5">${s.note}</p>` : ''}
     </div>`
   ).join('');
 }
 
-// ── COLLAPSIBLE ──
 function toggleSection(id) {
   const body  = document.getElementById(id+'-body');
   const arrow = document.getElementById(id+'-arrow');
@@ -429,7 +400,6 @@ function toggleSection(id) {
   arrow.style.transform = body.classList.contains('hidden') ? '' : 'rotate(180deg)';
 }
 
-// ── BOOT ──
 initGame();
 render();
 renderSolution();
