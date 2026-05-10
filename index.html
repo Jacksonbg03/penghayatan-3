@@ -6,159 +6,170 @@
 <title>🛶 Menyebrangi Pulau</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <script src="https://cdn.tailwindcss.com"></script>
-<script>
-  tailwind.config = {
-    theme: {
-      extend: {
-        colors: {
-          island: { a: '#f59e0b', b: '#22c55e' },
-        },
-        animation: {
-          'pulse-slow': 'pulse 2s cubic-bezier(0.4,0,0.6,1) infinite',
-          'bounce-in': 'bounceIn .4s ease',
-        },
-        keyframes: {
-          bounceIn: {
-            '0%': { transform: 'scale(.85)', opacity: '0' },
-            '70%': { transform: 'scale(1.04)' },
-            '100%': { transform: 'scale(1)', opacity: '1' },
-          }
-        }
-      }
-    }
-  }
-</script>
 <style>
-  body { background: #080f1e; font-family: 'Plus Jakarta Sans', sans-serif; }
-  .glass { background: rgba(255,255,255,.04); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,.08); }
-  .glass-hover:active { background: rgba(255,255,255,.08); transform: scale(.97); }
-  .chip-selected { background: rgba(99,102,241,.25) !important; border-color: #6366f1 !important; box-shadow: 0 0 0 1px #6366f1, 0 0 16px rgba(99,102,241,.3); }
-  .shore-active { border-color: #6366f1 !important; box-shadow: 0 0 0 1px #6366f1, 0 0 24px rgba(99,102,241,.15); }
-  .glow-green { box-shadow: 0 0 24px rgba(34,197,94,.25); border-color: #22c55e !important; }
-  .glow-red   { box-shadow: 0 0 24px rgba(239,68,68,.25);  border-color: #ef4444 !important; }
-  ::-webkit-scrollbar { width: 4px; }
-  ::-webkit-scrollbar-track { background: transparent; }
-  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,.1); border-radius: 99px; }
-  .fade-in { animation: bounceIn .35s ease; }
-  @keyframes bounceIn {
-    0% { transform: scale(.88); opacity: 0; }
-    70% { transform: scale(1.03); }
-    100% { transform: scale(1); opacity: 1; }
+  * { font-family: 'Montserrat', sans-serif; }
+  body { background: #070d1a; }
+
+  .glass { background: rgba(255,255,255,.05); backdrop-filter: blur(16px); border: 1px solid rgba(255,255,255,.09); }
+  .glass-sm { background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.07); }
+
+  .chip-selected {
+    background: rgba(99,102,241,.3) !important;
+    border-color: #6366f1 !important;
+    box-shadow: 0 0 0 1.5px #6366f1, 0 0 20px rgba(99,102,241,.35);
   }
-  .btn-disabled { opacity: .35 !important; pointer-events: none; }
+  .shore-active {
+    border-color: #818cf8 !important;
+    box-shadow: 0 0 0 1.5px #6366f1, 0 0 28px rgba(99,102,241,.18);
+  }
+  .glow-green { box-shadow: 0 0 28px rgba(34,197,94,.2); border-color: #22c55e !important; }
+  .glow-red   { box-shadow: 0 0 28px rgba(239,68,68,.2); border-color: #ef4444 !important; }
+
+  .btn-disabled { opacity: .3 !important; pointer-events: none; }
+
+  .chip-hover { transition: all .15s ease; }
+  .chip-hover:active { transform: scale(.96); }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .fade-up { animation: fadeUp .3s ease; }
+
+  @keyframes shake {
+    0%,100% { transform: translateX(0); }
+    20%,60%  { transform: translateX(-5px); }
+    40%,80%  { transform: translateX(5px); }
+  }
+  .shake { animation: shake .4s ease; }
+
+  ::-webkit-scrollbar { width: 3px; }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,.12); border-radius: 99px; }
 </style>
 </head>
-<body class="min-h-screen text-white font-sans select-none">
+<body class="min-h-screen text-white select-none">
 
-<!-- HEADER -->
-<div class="sticky top-0 z-50 px-4 py-3" style="background:rgba(8,15,30,.85);backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,.07)">
-  <div class="flex items-center justify-between max-w-lg mx-auto">
+<!-- ── HEADER ── -->
+<header class="sticky top-0 z-50" style="background:rgba(7,13,26,.9);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,255,255,.06)">
+  <div class="max-w-md mx-auto flex items-center justify-between px-4 py-3.5">
     <div>
-      <h1 class="text-base font-black tracking-wide">🛶 Menyebrangi Pulau</h1>
-      <p class="text-xs text-white/40 mt-0.5">Pindahkan semua dari Pulau A → B</p>
+      <p class="text-xs font-600 text-white/35 uppercase tracking-widest mb-0.5">CT Helper · Pos 2</p>
+      <h1 class="text-lg font-black leading-tight">🛶 Menyebrangi Pulau</h1>
     </div>
-    <button onclick="resetGame()" class="glass glass-hover rounded-xl px-3 py-2 text-xs font-bold text-red-400 transition-all duration-150">↺ Reset</button>
+    <button onclick="resetGame()"
+      class="glass-sm rounded-2xl px-4 py-2 text-sm font-700 text-red-400 chip-hover active:scale-95">
+      ↺ Reset
+    </button>
   </div>
-</div>
+</header>
 
-<div class="max-w-lg mx-auto px-3 pb-10 pt-3 space-y-3">
+<div class="max-w-md mx-auto px-3.5 pt-4 pb-16 space-y-3.5">
 
-  <!-- STATUS BAR -->
-  <div id="status-bar" class="glass rounded-2xl px-4 py-3 text-center font-bold text-sm transition-all duration-300 glow-green">
+  <!-- STATUS -->
+  <div id="status-bar"
+    class="glass glow-green rounded-2xl px-5 py-3.5 text-center font-bold text-base transition-all duration-300 text-green-400">
     ✅ Aman — Pilih siapa yang naik perahu
   </div>
 
   <!-- VIOLATIONS -->
-  <div id="violations" class="space-y-2"></div>
+  <div id="violations" class="space-y-2.5"></div>
 
-  <!-- WIN CARD -->
-  <div id="win-card" class="hidden glass glow-green rounded-2xl p-5 text-center fade-in">
-    <div class="text-4xl mb-2">🎉</div>
-    <div class="text-lg font-black text-green-400">Semua Berhasil Menyebrang!</div>
-    <div class="text-xs text-white/50 mt-1">Pulau A sudah kosong. Lanjut ke Pos 3!</div>
-    <div class="mt-3 bg-yellow-500/10 border border-yellow-500/25 rounded-xl p-3 text-xs text-yellow-300 italic">
+  <!-- WIN -->
+  <div id="win-card" class="hidden glass glow-green rounded-2xl p-6 text-center fade-up">
+    <div class="text-5xl mb-3">🎉</div>
+    <div class="text-xl font-black text-green-400 mb-1">Semua Berhasil Menyebrang!</div>
+    <div class="text-sm text-white/50">Pulau A sudah kosong. Lanjut ke Pos 3!</div>
+    <div class="mt-4 bg-yellow-500/10 border border-yellow-500/25 rounded-2xl p-3.5 text-sm text-yellow-300 italic leading-relaxed">
       💬 "Mau bantu tim lain atau lanjut ke Pos 3?"
     </div>
   </div>
 
-  <!-- ISLANDS ROW -->
-  <div class="grid grid-cols-2 gap-2">
+  <!-- ── ISLANDS ── -->
+  <div class="grid grid-cols-2 gap-2.5">
 
     <!-- PULAU A -->
-    <div id="island-a" class="glass rounded-2xl p-3 transition-all duration-300">
-      <div class="flex items-center justify-between mb-2">
+    <div id="island-a" class="glass rounded-2xl p-3.5 transition-all duration-300">
+      <div class="flex items-start justify-between mb-3">
         <div>
-          <div class="text-[10px] font-bold uppercase tracking-widest text-white/30">Asal</div>
-          <div class="text-base font-black text-amber-400">Pulau A</div>
+          <p class="text-[11px] font-700 uppercase tracking-widest text-white/30 mb-0.5">Asal</p>
+          <h2 class="text-xl font-black text-amber-400 leading-none">Pulau A</h2>
         </div>
-        <div id="count-a" class="text-[10px] font-bold bg-amber-500/15 text-amber-400 rounded-lg px-2 py-1">8</div>
+        <span id="count-a" class="text-sm font-800 bg-amber-500/15 text-amber-400 rounded-xl px-2.5 py-1">8</span>
       </div>
-      <div id="chars-a" class="space-y-1.5"></div>
+      <div id="chars-a" class="space-y-2"></div>
     </div>
 
     <!-- PULAU B -->
-    <div id="island-b" class="glass rounded-2xl p-3 transition-all duration-300">
-      <div class="flex items-center justify-between mb-2">
+    <div id="island-b" class="glass rounded-2xl p-3.5 transition-all duration-300">
+      <div class="flex items-start justify-between mb-3">
         <div>
-          <div class="text-[10px] font-bold uppercase tracking-widest text-white/30">Tujuan</div>
-          <div class="text-base font-black text-green-400">Pulau B</div>
+          <p class="text-[11px] font-700 uppercase tracking-widest text-white/30 mb-0.5">Tujuan</p>
+          <h2 class="text-xl font-black text-green-400 leading-none">Pulau B</h2>
         </div>
-        <div id="count-b" class="text-[10px] font-bold bg-green-500/15 text-green-400 rounded-lg px-2 py-1">0</div>
+        <span id="count-b" class="text-sm font-800 bg-green-500/15 text-green-400 rounded-xl px-2.5 py-1">0</span>
       </div>
-      <div id="chars-b" class="space-y-1.5"></div>
+      <div id="chars-b" class="space-y-2"></div>
     </div>
 
   </div>
 
-  <!-- BOAT ZONE -->
-  <div class="glass rounded-2xl p-4 transition-all duration-300" id="boat-zone">
-    <div class="flex items-center justify-between mb-3">
-      <div class="flex items-center gap-2">
-        <span class="text-xl">🛶</span>
+  <!-- ── BOAT ── -->
+  <div id="boat-zone" class="glass rounded-2xl p-4 transition-all duration-300">
+
+    <div class="flex items-center justify-between mb-3.5">
+      <div class="flex items-center gap-2.5">
+        <div class="text-2xl">🛶</div>
         <div>
-          <div class="text-sm font-bold">Perahu</div>
-          <div class="text-[10px] text-white/40">Maks. 2 orang</div>
+          <p class="text-base font-black leading-tight">Perahu</p>
+          <p class="text-xs text-white/40 font-500">Maks. 2 orang</p>
         </div>
       </div>
-      <div id="boat-loc" class="text-xs font-bold rounded-xl px-3 py-1 bg-amber-500/15 text-amber-400">di Pulau A</div>
+      <div id="boat-loc" class="text-sm font-700 rounded-xl px-3.5 py-1.5 bg-amber-500/15 text-amber-400">
+        di Pulau A
+      </div>
     </div>
 
     <!-- Passengers -->
-    <div id="boat-passengers" class="min-h-[44px] flex items-center gap-2 flex-wrap mb-3">
-      <span class="text-xs text-white/30 italic">Tap karakter untuk naik perahu...</span>
+    <div id="boat-passengers" class="min-h-[52px] flex items-center gap-2 flex-wrap mb-3.5">
+      <span class="text-sm text-white/25 italic font-500">Tap karakter untuk naik perahu...</span>
     </div>
 
-    <!-- Capacity dots -->
-    <div class="flex gap-1.5 mb-3">
-      <div id="dot-1" class="h-1.5 flex-1 rounded-full bg-white/10 transition-all duration-200"></div>
-      <div id="dot-2" class="h-1.5 flex-1 rounded-full bg-white/10 transition-all duration-200"></div>
+    <!-- Capacity bar -->
+    <div class="flex gap-2 mb-4">
+      <div id="dot-1" class="h-2 flex-1 rounded-full bg-white/10 transition-all duration-200"></div>
+      <div id="dot-2" class="h-2 flex-1 rounded-full bg-white/10 transition-all duration-200"></div>
     </div>
 
-    <!-- Move button -->
+    <!-- Dayung button -->
     <button id="move-btn" onclick="moveBoat()"
-      class="w-full py-3.5 rounded-xl font-black text-sm tracking-wide transition-all duration-200 active:scale-95"
-      style="background:linear-gradient(135deg,#6366f1,#4338ca);box-shadow:0 4px 20px rgba(99,102,241,.4)">
+      class="w-full py-4 rounded-2xl font-black text-base tracking-wide transition-all duration-200 active:scale-95 chip-hover"
+      style="background:linear-gradient(135deg,#6366f1,#4338ca);box-shadow:0 6px 24px rgba(99,102,241,.45)">
       🛶 Dayung → Pulau B
     </button>
   </div>
 
-  <!-- STEP LOG + SOLUTION (collapsible) -->
+  <!-- ── RIWAYAT ── -->
   <div class="glass rounded-2xl overflow-hidden">
-    <button onclick="toggleLog()" class="w-full flex items-center justify-between px-4 py-3 text-sm font-bold active:bg-white/5 transition">
-      <span>📜 Riwayat <span id="move-count" class="text-indigo-400 ml-1">0</span></span>
-      <span id="log-arrow" class="text-white/40 text-xs transition-transform duration-200">▼</span>
+    <button onclick="toggleSection('log')"
+      class="w-full flex items-center justify-between px-4 py-4 chip-hover transition">
+      <span class="text-base font-bold">📜 Riwayat <span id="move-count" class="text-indigo-400 ml-1">0</span></span>
+      <span id="log-arrow" class="text-white/35 font-bold transition-transform duration-200">▾</span>
     </button>
-    <div id="log-body" class="hidden px-3 pb-3 max-h-56 overflow-y-auto space-y-2">
-      <div id="log-list"><p class="text-xs text-white/30 italic text-center py-2">Belum ada perjalanan</p></div>
+    <div id="log-body" class="hidden px-3 pb-3 max-h-64 overflow-y-auto space-y-2">
+      <div id="log-list">
+        <p class="text-sm text-white/30 italic text-center py-3">Belum ada perjalanan</p>
+      </div>
     </div>
   </div>
 
+  <!-- ── KUNCI ── -->
   <div class="glass rounded-2xl overflow-hidden">
-    <button onclick="toggleSol()" class="w-full flex items-center justify-between px-4 py-3 text-sm font-bold active:bg-white/5 transition">
-      <span>💡 Kunci Jawaban <span class="text-[10px] font-normal text-white/30 ml-1">CT Only</span></span>
-      <span id="sol-arrow" class="text-white/40 text-xs transition-transform duration-200">▼</span>
+    <button onclick="toggleSection('sol')"
+      class="w-full flex items-center justify-between px-4 py-4 chip-hover transition">
+      <span class="text-base font-bold">💡 Kunci Jawaban <span class="text-xs font-500 text-white/30 ml-1">CT Only</span></span>
+      <span id="sol-arrow" class="text-white/35 font-bold transition-transform duration-200">▾</span>
     </button>
     <div id="sol-body" class="hidden px-3 pb-3 space-y-2">
       <div id="sol-steps"></div>
@@ -168,9 +179,7 @@
 </div>
 
 <script>
-// ============================
-// DATA
-// ============================
+// ── DATA ──
 const CHARS = {
   ayah:  { id:'ayah',  name:'AYAH',   emoji:'👨', isAdult:true,  canRow:true,  maxRows:4 },
   ibu:   { id:'ibu',   name:'IBU',    emoji:'👩', isAdult:true,  canRow:true,  maxRows:3 },
@@ -183,53 +192,38 @@ const CHARS = {
 };
 
 const SOLUTION = [
-  { step:1,  who:'Ayah + Ibu',    dir:'→ Pulau B', note:'✔ Aman', a:'Kakak, Paman, Anak1, Anak2, Kakek, Nenek', b:'Ayah, Ibu' },
-  { step:2,  who:'Ayah',          dir:'← Pulau A', note:'',        a:'Semua kecuali Ibu', b:'Ibu' },
-  { step:3,  who:'Ayah + Anak 1', dir:'→ Pulau B', note:'',        a:'Kakak, Paman, Anak2, Kakek, Nenek', b:'Ibu, Ayah, Anak1' },
-  { step:4,  who:'Ayah',          dir:'← Pulau A', note:'',        a:'Ayah, Kakak, Paman, Anak2, Kakek, Nenek', b:'Ibu, Anak1' },
-  { step:5,  who:'Kakak + Kakek', dir:'→ Pulau B', note:'✔ Anak aman (2 dewasa di B)', a:'Ayah, Paman, Anak2, Nenek', b:'Ibu, Anak1, Kakak, Kakek' },
-  { step:6,  who:'Kakak',         dir:'← Pulau A', note:'',        a:'Ayah, Kakak, Paman, Anak2, Nenek', b:'Ibu, Anak1, Kakek' },
-  { step:7,  who:'Kakak + Ayah',  dir:'→ Pulau B', note:'',        a:'Paman, Anak2, Nenek', b:'Ibu, Anak1, Kakek, Kakak, Ayah' },
-  { step:8,  who:'Ibu',           dir:'← Pulau A', note:'',        a:'Ibu, Paman, Anak2, Nenek', b:'Anak1, Kakek, Kakak, Ayah' },
-  { step:9,  who:'Ibu + Anak 2',  dir:'→ Pulau B', note:'',        a:'Paman, Nenek', b:'Anak1, Kakek, Kakak, Ayah, Ibu, Anak2' },
-  { step:10, who:'Ibu',           dir:'← Pulau A', note:'',        a:'Ibu, Paman, Nenek', b:'Anak1, Kakek, Kakak, Ayah, Anak2' },
-  { step:11, who:'Paman + Nenek', dir:'→ Pulau B', note:'',        a:'Ibu', b:'Semua kecuali Ibu' },
-  { step:12, who:'Paman',         dir:'← Pulau A', note:'',        a:'Ibu, Paman', b:'Anak1, Kakek, Kakak, Ayah, Anak2, Nenek' },
-  { step:13, who:'Paman + Ibu',   dir:'→ Pulau B', note:'🎉 MENANG!', a:'KOSONG', b:'Semua orang' },
+  { step:1,  who:'Ayah + Ibu',    dir:'→ B', note:'✔ Aman', a:'Kakak, Paman, Anak1, Anak2, Kakek, Nenek', b:'Ayah, Ibu' },
+  { step:2,  who:'Ayah',          dir:'← A', note:'',       a:'Semua kecuali Ibu', b:'Ibu' },
+  { step:3,  who:'Ayah + Anak 1', dir:'→ B', note:'',       a:'Kakak, Paman, Anak2, Kakek, Nenek', b:'Ibu, Ayah, Anak1' },
+  { step:4,  who:'Ayah',          dir:'← A', note:'',       a:'Ayah, Kakak, Paman, Anak2, Kakek, Nenek', b:'Ibu, Anak1' },
+  { step:5,  who:'Kakak + Kakek', dir:'→ B', note:'✔ Anak aman (2 dewasa di B)', a:'Ayah, Paman, Anak2, Nenek', b:'Ibu, Anak1, Kakak, Kakek' },
+  { step:6,  who:'Kakak',         dir:'← A', note:'',       a:'Ayah, Kakak, Paman, Anak2, Nenek', b:'Ibu, Anak1, Kakek' },
+  { step:7,  who:'Kakak + Ayah',  dir:'→ B', note:'',       a:'Paman, Anak2, Nenek', b:'Ibu, Anak1, Kakek, Kakak, Ayah' },
+  { step:8,  who:'Ibu',           dir:'← A', note:'',       a:'Ibu, Paman, Anak2, Nenek', b:'Anak1, Kakek, Kakak, Ayah' },
+  { step:9,  who:'Ibu + Anak 2',  dir:'→ B', note:'',       a:'Paman, Nenek', b:'Anak1, Kakek, Kakak, Ayah, Ibu, Anak2' },
+  { step:10, who:'Ibu',           dir:'← A', note:'',       a:'Ibu, Paman, Nenek', b:'Anak1, Kakek, Kakak, Ayah, Anak2' },
+  { step:11, who:'Paman + Nenek', dir:'→ B', note:'',       a:'Ibu', b:'Semua kecuali Ibu' },
+  { step:12, who:'Paman',         dir:'← A', note:'',       a:'Ibu, Paman', b:'Anak1, Kakek, Kakak, Ayah, Anak2, Nenek' },
+  { step:13, who:'Paman + Ibu',   dir:'→ B', note:'🎉 MENANG!', a:'KOSONG', b:'Semua orang' },
 ];
 
-// ============================
-// STATE
-// ============================
+// ── STATE ──
 let G = {};
 
 function initGame() {
-  G = {
-    locs: {},   // charId → 'A' | 'B'
-    rows: {},   // charId → used count
-    boatAt: 'A',
-    selected: new Set(),
-    log: [],
-    over: false,
-    won: false,
-  };
-  for (const id in CHARS) { G.locs[id] = 'A'; G.rows[id] = 0; }
+  G = { locs:{}, rows:{}, boatAt:'A', selected:new Set(), log:[], over:false, won:false };
+  for (const id in CHARS) { G.locs[id]='A'; G.rows[id]=0; }
 }
 
-function resetGame() {
-  initGame();
-  render();
-}
+function resetGame() { initGame(); render(); }
 
-// ============================
-// LOGIC
-// ============================
-function atLoc(loc) { return Object.keys(CHARS).filter(id => G.locs[id] === loc); }
+// ── LOGIC ──
+function atLoc(loc) { return Object.keys(CHARS).filter(id => G.locs[id]===loc); }
 
 function validate() {
   const v = [];
   ['A','B'].forEach(loc => {
-    const here = atLoc(loc);
+    const here     = atLoc(loc);
     const adults   = here.filter(id => CHARS[id].isAdult);
     const children = here.filter(id => CHARS[id].isChild);
     const needAdult= here.filter(id => CHARS[id].needsAdult);
@@ -245,128 +239,116 @@ function boatError() {
   const sel = [...G.selected];
   if (!sel.length) return 'Pilih 1–2 orang untuk naik perahu';
   if (sel.length > 2) return 'Perahu maksimal 2 orang!';
-  const hasRower = sel.some(id => CHARS[id].canRow && G.rows[id] < CHARS[id].maxRows);
-  if (!hasRower) return 'Tidak ada yang bisa mendayung (atau dayungan sudah habis)!';
-  const adultInBoat = sel.some(id => CHARS[id].isAdult);
-  const childInBoat = sel.some(id => CHARS[id].isChild);
-  if (childInBoat && !adultInBoat) return 'Anak kecil tidak boleh di perahu tanpa orang dewasa!';
+  if (!sel.some(id => CHARS[id].canRow && G.rows[id] < CHARS[id].maxRows))
+    return 'Tidak ada yang bisa mendayung!';
+  if (sel.some(id=>CHARS[id].isChild) && !sel.some(id=>CHARS[id].isAdult))
+    return 'Anak kecil tidak boleh tanpa orang dewasa di perahu!';
   return null;
 }
 
 function toggleSelect(id) {
-  if (G.over || G.won) return;
-  if (G.locs[id] !== G.boatAt) return;
-  if (G.selected.has(id)) { G.selected.delete(id); }
+  if (G.over || G.won || G.locs[id] !== G.boatAt) return;
+  if (G.selected.has(id)) G.selected.delete(id);
   else { if (G.selected.size >= 2) return; G.selected.add(id); }
   render();
 }
 
 function moveBoat() {
   if (G.over || G.won || boatError()) return;
-  const sel = [...G.selected];
-  const dest = G.boatAt === 'A' ? 'B' : 'A';
-  const dir  = G.boatAt === 'A' ? '→ Pulau B' : '← Pulau A';
-  sel.forEach(id => { if (CHARS[id].canRow) G.rows[id]++; G.locs[id] = dest; });
+  const sel  = [...G.selected];
+  const dest = G.boatAt==='A' ? 'B' : 'A';
+  const dir  = G.boatAt==='A' ? '→ Pulau B' : '← Pulau A';
+  sel.forEach(id => { if (CHARS[id].canRow) G.rows[id]++; G.locs[id]=dest; });
   G.boatAt = dest;
   G.selected.clear();
   const a = atLoc('A').map(id=>CHARS[id].name).join(', ') || 'KOSONG';
   const b = atLoc('B').map(id=>CHARS[id].name).join(', ') || 'KOSONG';
-  G.log.push({ n: G.log.length+1, who: sel.map(id=>CHARS[id].name).join(' + '), dir, a, b });
-  const vios = validate();
-  if (vios.length) G.over = true;
+  G.log.push({ n:G.log.length+1, who:sel.map(id=>CHARS[id].name).join(' + '), dir, a, b });
+  if (validate().length) G.over = true;
   if (!atLoc('A').length) G.won = true;
   render();
 }
 
-// ============================
-// RENDER
-// ============================
-function render() {
-  renderIslands();
-  renderBoatZone();
-  renderStatus();
-  renderLog();
-}
+// ── RENDER ──
+function render() { renderIslands(); renderBoat(); renderStatus(); renderLog(); }
 
 function renderIslands() {
   ['A','B'].forEach(loc => {
     const ids = atLoc(loc);
     document.getElementById('count-'+loc.toLowerCase()).textContent = ids.length;
-    const el = document.getElementById('chars-'+loc.toLowerCase());
+    const el  = document.getElementById('chars-'+loc.toLowerCase());
 
     if (!ids.length) {
-      el.innerHTML = `<p class="text-center text-white/25 text-xs italic py-3">${loc==='A'?'🏝️ Kosong':'✅ Semua tiba!'}</p>`;
+      el.innerHTML = `<p class="text-center text-white/25 text-sm italic py-4 font-500">${loc==='A'?'🏝️ Kosong':'✅ Semua tiba!'}</p>`;
     } else {
       el.innerHTML = ids.map(id => {
         const c = CHARS[id];
-        const selectable = G.locs[id] === G.boatAt && !G.over && !G.won;
-        const isSel = G.selected.has(id);
-        const rowsLeft = c.canRow ? c.maxRows - G.rows[id] : null;
+        const canSelect = !G.over && !G.won && G.locs[id]===G.boatAt;
+        const isSel     = G.selected.has(id);
+        const rowsLeft  = c.canRow ? c.maxRows - G.rows[id] : null;
 
         let badges = '';
-        if (c.canRow)      badges += `<span class="px-1.5 py-0.5 rounded-md text-[9px] font-bold bg-indigo-500/20 text-indigo-300">${rowsLeft}x lagi</span>`;
-        if (c.isAdult)     badges += `<span class="px-1.5 py-0.5 rounded-md text-[9px] font-bold bg-green-500/20 text-green-400">Dewasa</span>`;
-        if (c.isChild)     badges += `<span class="px-1.5 py-0.5 rounded-md text-[9px] font-bold bg-red-500/20 text-red-400">Anak</span>`;
-        if (c.needsAdult)  badges += `<span class="px-1.5 py-0.5 rounded-md text-[9px] font-bold bg-yellow-500/15 text-yellow-400">Perlu dewasa</span>`;
-        if (rowsLeft === 0) badges += `<span class="px-1.5 py-0.5 rounded-md text-[9px] font-bold bg-red-500/20 text-red-400">Habis</span>`;
+        if (c.canRow)
+          badges += `<span class="px-2 py-0.5 rounded-lg text-xs font-700 ${rowsLeft===0 ? 'bg-red-500/20 text-red-400' : 'bg-indigo-500/20 text-indigo-300'}">${rowsLeft===0?'Habis':rowsLeft+'x'}</span>`;
+        if (c.isAdult)    badges += `<span class="px-2 py-0.5 rounded-lg text-xs font-700 bg-green-500/20 text-green-400">Dewasa</span>`;
+        if (c.isChild)    badges += `<span class="px-2 py-0.5 rounded-lg text-xs font-700 bg-red-500/20 text-red-400">Anak</span>`;
+        if (c.needsAdult) badges += `<span class="px-2 py-0.5 rounded-lg text-xs font-700 bg-yellow-500/15 text-yellow-400">Perlu dewasa</span>`;
 
-        return `<div onclick="${selectable?`toggleSelect('${id}')`:'void(0)'}"
-          class="flex items-center gap-2 rounded-xl border border-transparent p-2 transition-all duration-150 cursor-pointer
-            ${isSel ? 'chip-selected' : 'bg-white/5 border-white/8 hover:bg-white/8'}
-            ${!selectable ? 'opacity-40 cursor-default' : 'glass-hover'}">
-          <span class="text-xl leading-none flex-shrink-0">${c.emoji}</span>
+        return `<div onclick="${canSelect?`toggleSelect('${id}')`:''}"
+          class="flex items-center gap-2.5 rounded-xl border-2 p-2.5 chip-hover transition-all duration-150
+            ${isSel ? 'chip-selected' : 'bg-white/5 border-transparent'}
+            ${!canSelect ? 'opacity-40 cursor-not-allowed' : 'cursor-pointer'}">
+          <span class="text-2xl leading-none flex-shrink-0">${c.emoji}</span>
           <div class="flex-1 min-w-0">
-            <div class="text-[11px] font-black leading-tight">${c.name}</div>
-            <div class="flex gap-1 flex-wrap mt-0.5">${badges}</div>
+            <p class="text-sm font-800 leading-tight mb-1">${c.name}</p>
+            <div class="flex gap-1 flex-wrap">${badges}</div>
           </div>
         </div>`;
       }).join('');
     }
 
-    const isActive = G.boatAt === loc && !G.won && !G.over;
+    const isActive = G.boatAt===loc && !G.won && !G.over;
     document.getElementById('island-'+loc.toLowerCase()).className =
-      `glass rounded-2xl p-3 transition-all duration-300 ${isActive ? 'shore-active' : ''}`;
+      `glass rounded-2xl p-3.5 transition-all duration-300 ${isActive?'shore-active':''}`;
   });
 }
 
-function renderBoatZone() {
+function renderBoat() {
   const sel = [...G.selected];
-  const err = boatError();
 
   // Passengers
   const passEl = document.getElementById('boat-passengers');
   if (!sel.length) {
-    passEl.innerHTML = `<span class="text-xs text-white/25 italic">Tap karakter untuk naik perahu...</span>`;
+    passEl.innerHTML = `<span class="text-sm text-white/25 italic font-500">Tap karakter untuk naik perahu...</span>`;
   } else {
     passEl.innerHTML = sel.map(id => {
       const c = CHARS[id];
-      return `<div class="flex items-center gap-1.5 bg-indigo-500/20 border border-indigo-500/30 rounded-xl px-3 py-1.5 text-xs font-bold">
+      return `<div class="flex items-center gap-2 bg-indigo-500/20 border border-indigo-400/30 rounded-xl px-3.5 py-2 text-sm font-700">
         ${c.emoji} ${c.name}
       </div>`;
     }).join('');
   }
 
-  // Capacity dots
-  ['dot-1','dot-2'].forEach((dotId, i) => {
-    const dot = document.getElementById(dotId);
-    dot.className = `h-1.5 flex-1 rounded-full transition-all duration-200 ${i < sel.length ? 'bg-indigo-400' : 'bg-white/10'}`;
+  // Dots
+  ['dot-1','dot-2'].forEach((dotId,i) => {
+    document.getElementById(dotId).className =
+      `h-2 flex-1 rounded-full transition-all duration-200 ${i<sel.length ? 'bg-indigo-400' : 'bg-white/10'}`;
   });
 
-  // Boat location badge
-  const boatLocEl = document.getElementById('boat-loc');
-  if (G.boatAt === 'A') {
-    boatLocEl.className = 'text-xs font-bold rounded-xl px-3 py-1 bg-amber-500/15 text-amber-400';
-    boatLocEl.textContent = 'di Pulau A';
+  // Boat loc badge
+  const bl = document.getElementById('boat-loc');
+  if (G.boatAt==='A') {
+    bl.className = 'text-sm font-700 rounded-xl px-3.5 py-1.5 bg-amber-500/15 text-amber-400';
+    bl.textContent = 'di Pulau A';
   } else {
-    boatLocEl.className = 'text-xs font-bold rounded-xl px-3 py-1 bg-green-500/15 text-green-400';
-    boatLocEl.textContent = 'di Pulau B';
+    bl.className = 'text-sm font-700 rounded-xl px-3.5 py-1.5 bg-green-500/15 text-green-400';
+    bl.textContent = 'di Pulau B';
   }
 
-  // Move button
+  // Button
   const btn = document.getElementById('move-btn');
-  const label = G.boatAt === 'A' ? '🛶 Dayung → Pulau B' : '🛶 Dayung ← Pulau A';
-  btn.textContent = label;
-  if (err || G.over || G.won) btn.classList.add('btn-disabled');
+  btn.textContent = G.boatAt==='A' ? '🛶 Dayung → Pulau B' : '🛶 Dayung ← Pulau A';
+  if (boatError()||G.over||G.won) btn.classList.add('btn-disabled');
   else btn.classList.remove('btn-disabled');
 }
 
@@ -376,7 +358,7 @@ function renderStatus() {
   const win  = document.getElementById('win-card');
 
   if (G.won) {
-    bar.className = 'glass rounded-2xl px-4 py-3 text-center font-bold text-sm transition-all duration-300 glow-green text-green-400';
+    bar.className = 'glass glow-green rounded-2xl px-5 py-3.5 text-center font-bold text-base transition-all duration-300 text-green-400';
     bar.textContent = '🎉 Semua berhasil menyebrang ke Pulau B!';
     vEl.innerHTML = '';
     win.classList.remove('hidden');
@@ -386,11 +368,11 @@ function renderStatus() {
 
   const vios = validate();
   if (G.over || vios.length) {
-    bar.className = 'glass rounded-2xl px-4 py-3 text-center font-bold text-sm transition-all duration-300 glow-red text-red-400 animate-pulse';
-    bar.textContent = '🚨 GAME OVER! Ada aturan yang dilanggar — Reset & Ulang';
+    bar.className = 'glass glow-red rounded-2xl px-5 py-3.5 text-center font-bold text-base transition-all duration-300 text-red-400';
+    bar.textContent = '🚨 GAME OVER! Ada aturan dilanggar — Reset & Ulang';
     vEl.innerHTML = vios.map(v =>
-      `<div class="flex items-start gap-2 bg-red-500/10 border border-red-500/25 rounded-xl px-3 py-2.5 text-xs text-red-300 leading-snug fade-in">
-        <span class="flex-shrink-0 mt-0.5">❌</span><span>${v}</span>
+      `<div class="flex items-start gap-3 bg-red-500/10 border border-red-500/25 rounded-2xl px-4 py-3 text-sm font-600 text-red-300 leading-snug fade-up">
+        <span class="flex-shrink-0">❌</span><span>${v}</span>
       </div>`
     ).join('');
     return;
@@ -398,8 +380,8 @@ function renderStatus() {
 
   vEl.innerHTML = '';
   const n = atLoc('B').length;
-  bar.className = 'glass rounded-2xl px-4 py-3 text-center font-bold text-sm transition-all duration-300 glow-green text-green-400';
-  bar.textContent = n === 0
+  bar.className = 'glass glow-green rounded-2xl px-5 py-3.5 text-center font-bold text-base transition-all duration-300 text-green-400';
+  bar.textContent = n===0
     ? '✅ Aman — Pilih siapa yang naik perahu'
     : `✅ Aman — ${n} orang sudah di Pulau B`;
 }
@@ -408,57 +390,46 @@ function renderLog() {
   document.getElementById('move-count').textContent = G.log.length;
   const el = document.getElementById('log-list');
   if (!G.log.length) {
-    el.innerHTML = `<p class="text-xs text-white/30 italic text-center py-2">Belum ada perjalanan</p>`;
+    el.innerHTML = `<p class="text-sm text-white/30 italic text-center py-3 font-500">Belum ada perjalanan</p>`;
     return;
   }
   el.innerHTML = [...G.log].reverse().map(e =>
-    `<div class="bg-white/4 rounded-xl px-3 py-2 fade-in">
-      <div class="text-[11px] font-black">
-        <span class="text-indigo-400">Step ${e.n}</span>
-        <span class="text-yellow-400 mx-1">${e.dir}</span>
-        <span>${e.who}</span>
+    `<div class="glass-sm rounded-xl px-4 py-3 fade-up">
+      <div class="flex items-center gap-2 mb-1.5">
+        <span class="text-sm font-800 text-indigo-400">Step ${e.n}</span>
+        <span class="text-sm font-700 text-yellow-400">${e.dir}</span>
+        <span class="text-sm font-700">${e.who}</span>
       </div>
-      <div class="text-[10px] text-white/35 mt-0.5">A: ${e.a}</div>
-      <div class="text-[10px] text-white/35">B: ${e.b}</div>
+      <p class="text-xs text-white/35 font-500">A: ${e.a}</p>
+      <p class="text-xs text-white/35 font-500">B: ${e.b}</p>
     </div>`
   ).join('');
 }
 
 function renderSolution() {
   document.getElementById('sol-steps').innerHTML = SOLUTION.map(s =>
-    `<div class="bg-white/4 rounded-xl px-3 py-2.5">
-      <div class="text-[11px] font-black">
-        <span class="text-indigo-400">Step ${s.step}</span>
-        <span class="text-yellow-400 mx-1">${s.dir}</span>
-        <span>${s.who}</span>
+    `<div class="glass-sm rounded-xl px-4 py-3">
+      <div class="flex items-center gap-2 mb-1.5">
+        <span class="text-sm font-800 text-indigo-400">Step ${s.step}</span>
+        <span class="text-sm font-700 text-yellow-400">${s.dir}</span>
+        <span class="text-sm font-700">${s.who}</span>
       </div>
-      <div class="text-[10px] text-white/35 mt-1">A: ${s.a}</div>
-      <div class="text-[10px] text-white/35">B: ${s.b}</div>
-      ${s.note ? `<div class="text-[10px] text-green-400 mt-1">${s.note}</div>` : ''}
+      <p class="text-xs text-white/35 font-500">A: ${s.a}</p>
+      <p class="text-xs text-white/35 font-500">B: ${s.b}</p>
+      ${s.note ? `<p class="text-xs font-700 text-green-400 mt-1.5">${s.note}</p>` : ''}
     </div>`
   ).join('');
 }
 
-// ============================
-// UI TOGGLES
-// ============================
-function toggleLog() {
-  const body  = document.getElementById('log-body');
-  const arrow = document.getElementById('log-arrow');
+// ── COLLAPSIBLE ──
+function toggleSection(id) {
+  const body  = document.getElementById(id+'-body');
+  const arrow = document.getElementById(id+'-arrow');
   body.classList.toggle('hidden');
   arrow.style.transform = body.classList.contains('hidden') ? '' : 'rotate(180deg)';
 }
 
-function toggleSol() {
-  const body  = document.getElementById('sol-body');
-  const arrow = document.getElementById('sol-arrow');
-  body.classList.toggle('hidden');
-  arrow.style.transform = body.classList.contains('hidden') ? '' : 'rotate(180deg)';
-}
-
-// ============================
-// BOOT
-// ============================
+// ── BOOT ──
 initGame();
 render();
 renderSolution();
