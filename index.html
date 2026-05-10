@@ -234,7 +234,8 @@ function moveBoat() {
   const sel  = [...G.selected];
   const dest = G.boatAt==='A' ? 'B' : 'A';
   const dir  = G.boatAt==='A' ? '→ Pulau B' : '← Pulau A';
-  sel.forEach(id => { if (CHARS[id].canRow) G.rows[id]++; G.locs[id]=dest; });
+  const rower = sel.find(id => CHARS[id].canRow && G.rows[id] < CHARS[id].maxRows);
+  sel.forEach(id => { if (id === rower) G.rows[id]++; G.locs[id]=dest; });
   G.boatAt = dest;
   G.selected.clear();
   const a = atLoc('A').map(id=>CHARS[id].name).join(', ') || 'KOSONG';
